@@ -6,12 +6,11 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import Login from './pages/Login';
 import DashboardLayout from './layouts/DashboardLayout';
 
-// ---- Remaining Placeholder Pages ----
-const Dashboard = () => <div className="text-2xl font-bold">Protected Dashboard!</div>;
-const Visitors = () => <div className="text-xl">Visitors Page</div>;
-const Food = () => <div className="text-xl">Food Prepared Page</div>;
-const Inventory = () => <div className="text-xl">Inventory Page</div>;
-const Attendance = () => <div className="text-xl">Attendance Page</div>;
+import Dashboard from './pages/Dashboard';
+import Visitors from './pages/Visitors';
+import Food from './pages/Food';
+import Inventory from './pages/Inventory';
+import Attendance from './pages/Attendance';
 
 function App() {
   return (
