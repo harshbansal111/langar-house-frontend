@@ -1,4 +1,4 @@
-import axios from 'react';
+import axios from 'axios';
 import { supabase } from './supabaseClient';
 import { toast } from 'react-toastify';
 
