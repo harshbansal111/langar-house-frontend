@@ -24,15 +24,30 @@ export default function Attendance() {
   useEffect(() => { fetchRecords(); }, []);
 
   const handleModalSubmit = async (formData) => {
-    toast.success(editingRecord ? "Attendance updated" : "Attendance logged");
-    setIsModalOpen(false);
-    fetchRecords();
+    try {
+      if (editingRecord) {
+        await updateAttendance(editingRecord.id, formData);
+        toast.success("Attendance updated");
+      } else {
+        await createAttendance(formData);
+        toast.success("Attendance logged");
+      }
+      setIsModalOpen(false);
+      fetchRecords();
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Operation failed");
+    }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm("Delete this record?")) {
-      toast.success("Record deleted");
-      fetchRecords();
+      try {
+        await deleteAttendance(id);
+        toast.success("Record deleted");
+        fetchRecords();
+      } catch (err) {
+        toast.error("Failed to delete record");
+      }
     }
   };
 
