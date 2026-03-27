@@ -16,10 +16,8 @@ export default function Attendance() {
   const fetchRecords = async () => {
     try {
       setLoading(true);
-      setData([
-        { id: 1, date: '2026-03-27', staffName: 'Ramesh Singh', role: 'COOK', status: 'PRESENT', shift: 'MORNING' },
-        { id: 2, date: '2026-03-27', staffName: 'Sunita Devi', role: 'CLEANER', status: 'ABSENT', shift: 'EVENING' },
-      ]);
+      const records = await getAttendance(0, 50);
+      setData(records);
     } catch (err) {} finally { setLoading(false); }
   };
 

@@ -21,19 +21,13 @@ export default function Food() {
   const fetchRecords = async () => {
     try {
       setLoading(true);
-      // In a real app, replace with getFoodLogs() 
-      // Using mock data here seamlessly until backend FoodController is fully confirmed
-      const mockData = [
-        { id: 1, date: '2026-03-27', mealType: 'LUNCH', item: 'Rice', quantityPrepared: 50, quantityLeftover: 2, unit: 'KG' },
-        { id: 2, date: '2026-03-27', mealType: 'LUNCH', item: 'Dal', quantityPrepared: 40, quantityLeftover: 5, unit: 'LITERS' },
-        { id: 3, date: '2026-03-26', mealType: 'DINNER', item: 'Roti', quantityPrepared: 800, quantityLeftover: 50, unit: 'PIECES' },
-      ];
-      setData(mockData);
+      const records = await getFoodLogs(0, 50);
+      setData(records);
 
       // STEP 7.1 Mathematical Calculation (Consumed = Prepared - Leftovers)
       let totalPrepared = 0;
       let totalWaste = 0;
-      mockData.forEach(item => {
+      records.forEach(item => {
         // Normalizing purely for a simplistic chart (treating items equally by unit size just for visual)
         totalPrepared += Number(item.quantityPrepared);
         totalWaste += Number(item.quantityLeftover);

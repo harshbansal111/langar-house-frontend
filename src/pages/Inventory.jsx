@@ -16,12 +16,8 @@ export default function Inventory() {
   const fetchRecords = async () => {
     try {
       setLoading(true);
-      // MOCK DATA for seamless UI rendering fallback
-      setData([
-        { id: 1, itemName: 'Basmati Rice', category: 'GROCERY', quantity: 250, threshold: 100, unit: 'KG' },
-        { id: 2, itemName: 'Mustard Oil', category: 'GROCERY', quantity: 15, threshold: 20, unit: 'LITERS' },
-        { id: 3, itemName: 'Onions', category: 'VEGETABLES', quantity: 40, threshold: 50, unit: 'KG' },
-      ]);
+      const records = await getInventory(0, 50);
+      setData(records);
     } catch (err) {} finally { setLoading(false); }
   };
 
