@@ -6,9 +6,9 @@ export default function FoodModal({ isOpen, onClose, onSubmit, initialData }) {
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split('T')[0],
     mealType: 'LUNCH',
-    item: '',
+    dishName: '',
     quantityPrepared: '',
-    quantityLeftover: '',
+    quantityWasted: '',
     unit: 'KG'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,9 +20,9 @@ export default function FoodModal({ isOpen, onClose, onSubmit, initialData }) {
       setFormData({
         date: new Date().toISOString().split('T')[0],
         mealType: 'LUNCH',
-        item: '',
+        dishName: '',
         quantityPrepared: '',
-        quantityLeftover: '0',
+        quantityWasted: '0',
         unit: 'KG'
       });
     }
@@ -71,7 +71,7 @@ export default function FoodModal({ isOpen, onClose, onSubmit, initialData }) {
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-1">
                 <label className="mb-2 block text-sm font-medium">Food Item</label>
-                <input type="text" required value={formData.item} onChange={(e) => setFormData({...formData, item: e.target.value})} className="block w-full rounded-lg border-gray-300 bg-gray-50 border p-2" placeholder="e.g. Rice, Dal" />
+                <input type="text" required value={formData.dishName} onChange={(e) => setFormData({...formData, dishName: e.target.value})} className="block w-full rounded-lg border-gray-300 bg-gray-50 border p-2" placeholder="e.g. Rice, Dal" />
               </div>
               <div className="col-span-1">
                 <label className="mb-2 block text-sm font-medium">Unit</label>
@@ -90,7 +90,7 @@ export default function FoodModal({ isOpen, onClose, onSubmit, initialData }) {
                </div>
                <div>
                   <label className="mb-2 block text-sm font-medium text-amber-700">Leftovers (Waste)</label>
-                  <input type="number" min="0" step="0.5" required value={formData.quantityLeftover} onChange={(e) => setFormData({...formData, quantityLeftover: e.target.value})} className="block w-full rounded-lg border-amber-200 border p-2" />
+                  <input type="number" min="0" step="0.5" required value={formData.quantityWasted} onChange={(e) => setFormData({...formData, quantityWasted: e.target.value})} className="block w-full rounded-lg border-amber-200 border p-2" />
                </div>
             </div>
 

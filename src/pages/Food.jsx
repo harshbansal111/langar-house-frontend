@@ -30,7 +30,7 @@ export default function Food() {
       records.forEach(item => {
         // Normalizing purely for a simplistic chart (treating items equally by unit size just for visual)
         totalPrepared += Number(item.quantityPrepared);
-        totalWaste += Number(item.quantityLeftover);
+        totalWaste += Number(item.quantityWasted);
       });
       
       const consumed = totalPrepared - totalWaste;
@@ -74,12 +74,12 @@ export default function Food() {
 
   const columns = [
     { key: 'date', label: 'Date' },
-    { key: 'item', label: 'Food Item', cellClassName: 'font-semibold text-gray-900' },
+    { key: 'dishName', label: 'Food Item', cellClassName: 'font-semibold text-gray-900' },
     { key: 'mealType', label: 'Meal' },
     { key: 'quantityPrepared', label: 'Prepared', render: (r) => `${r.quantityPrepared} ${r.unit}` },
-    { key: 'quantityLeftover', label: 'Leftover', render: (r) => (
-      <span className={r.quantityLeftover > 0 ? "text-amber-600 font-bold" : "text-green-600"}>
-        {r.quantityLeftover} {r.unit}
+    { key: 'quantityWasted', label: 'Leftover', render: (r) => (
+      <span className={r.quantityWasted > 0 ? "text-amber-600 font-bold" : "text-green-600"}>
+        {r.quantityWasted} {r.unit}
       </span>
     )},
     { 
@@ -88,7 +88,7 @@ export default function Food() {
       // THE MAGIC of STEP 7: Realtime derived computation inside the Reusable Table
       render: (r) => (
         <span className="font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded">
-          {(r.quantityPrepared - r.quantityLeftover).toFixed(1)} {r.unit}
+          {(r.quantityPrepared - r.quantityWasted).toFixed(1)} {r.unit}
         </span>
       )
     },
