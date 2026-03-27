@@ -45,15 +45,30 @@ export default function Food() {
   useEffect(() => { fetchRecords(); }, []);
 
   const handleModalSubmit = async (formData) => {
-    toast.success(editingRecord ? "Food updated" : "Food logged successfully");
-    setIsModalOpen(false);
-    fetchRecords();
+    try {
+      if (editingRecord) {
+        await updateFoodLog(editingRecord.id, formData);
+        toast.success("Food updated");
+      } else {
+        await createFoodLog(formData);
+        toast.success("Food logged successfully");
+      }
+      setIsModalOpen(false);
+      fetchRecords();
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Operation failed");
+    }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm("Delete this food log?")) {
-      toast.success("Log deleted");
-      fetchRecords();
+      try {
+        await deleteFoodLog(id);
+        toast.success("Log deleted");
+        fetchRecords();
+      } catch (err) {
+        toast.error("Failed to delete log");
+      }
     }
   };
 

@@ -24,15 +24,30 @@ export default function Inventory() {
   useEffect(() => { fetchRecords(); }, []);
 
   const handleModalSubmit = async (formData) => {
-    toast.success(editingRecord ? "Item updated" : "Item added to inventory");
-    setIsModalOpen(false);
-    fetchRecords();
+    try {
+      if (editingRecord) {
+        await updateItem(editingRecord.id, formData);
+        toast.success("Item updated");
+      } else {
+        await createItem(formData);
+        toast.success("Item added to inventory");
+      }
+      setIsModalOpen(false);
+      fetchRecords();
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Operation failed");
+    }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm("Delete this inventory item?")) {
-      toast.success("Item deleted");
-      fetchRecords();
+      try {
+        await deleteItem(id);
+        toast.success("Item deleted");
+        fetchRecords();
+      } catch (err) {
+        toast.error("Failed to delete item");
+      }
     }
   };
 
